@@ -1,0 +1,13 @@
+
+\let\oldpart\part
+\renewcommand{\part}{\clearpage\oldpart}
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries}{\thesection}{1em}{}[{\titlerule[0.8pt]}]
+\newcommand{\sectionbreak}{\clearpage}
+
+% Insert new page before \section
+\pretocmd{\section}{\clearpage}{}{}
+
+% Insert new page before \subsection
+\pretocmd{\subsection}{\clearpage}{}{}
