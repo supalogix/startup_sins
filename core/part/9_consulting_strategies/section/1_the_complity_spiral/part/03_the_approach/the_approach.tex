@@ -495,7 +495,13 @@ headcount just to maintain reporting compliance?''
       \node[box] (trsparty) at (0,2) {Swap Counterparty};
   
       \draw[arrow] (trsasset) -- node[above] {\scriptsize Total Return Flow} (trsparty);
-      \draw[arrow] (trsparty) -- node[below] {\scriptsize Fixed/Floating Payment} (trsasset);
+      \draw[arrow] (trsparty) 
+        -- ++(0, 1) coordinate (drop)
+        -- ++(+2.5, 0) coordinate (midpoint)
+        -|
+        (trsasset);
+
+      \node[above] at (midpoint) {\scriptsize Fixed/Floating Payment} (trsasset);
   
   
       % Structured Notes
@@ -503,12 +509,19 @@ headcount just to maintain reporting compliance?''
       \node[box] (issuer) at (5,-2) {Issuer / Bank};
   
       \draw[arrow] (investor) -- node[above] {\scriptsize Capital Investment} (issuer);
-      \draw[arrow] (issuer) -- node[below] {\scriptsize Structured Payoff (linked to credit basket)} (investor);
+      \draw[arrow] (issuer) 
+        -- ++(0, -1) coordinate (drop)
+        -- ++(-2.5, 0) coordinate (midpoint)
+        -|
+        (investor);
+      \node[below] at (midpoint) {\scriptsize Structured Payoff (linked to credit basket)};
+
+
   
   
       % Borrower arrow
-      \draw[arrow, dashed] (borrower) -- node[below left] {\scriptsize Underlying risk flows} (trsasset);
-      \draw[arrow, dashed] (borrower) -- node[below right] {} (issuer);
+      \draw[arrow, dashed] (borrower) -- node[below left] {\scriptsize Underlying risk flow} (trsasset);
+      \draw[arrow, dashed] (borrower) -- node[below left] {\scriptsize Underlying risk flow} (issuer);
 
       %\node[note] at (-2,2.6) {CDS shifts default risk};
       %\node[note] at (4,0.8) {TRS swaps performance for certainty};
@@ -849,14 +862,38 @@ there’s a war.''
 
 David scratched numbers into the corner of the napkin.
 
-``Mid-curve case:''
+\medskip
 
-\begin{itemize}
-  \item 1{,}000 clients in 6 years  
-  \item Average \$750K/year  
-  \item \$750M ARR potential
-\end{itemize}
-
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+      font=\footnotesize,
+      fuzz/.style={draw=black, thick, rounded corners, fill=gray!5, decorate, decoration={random steps, segment length=2pt, amplitude=1pt}},
+      txt/.style={align=left, font=\scriptsize\itshape},
+    ]
+  
+    % Napkin box
+    \node[fuzz, minimum width=9.5cm, minimum height=5cm, anchor=north west] (napkin) at (0,0) {};
+  
+    % Content inside
+    \node[txt, anchor=north west] at ([xshift=0.6cm, yshift=-0.6cm]napkin.north west) {
+      \textbf{Mid-Curve Case (Sketch)} \\
+      \\
+      \textbf{1{,}000 clients over 6 years} \\
+      \quad $\rightarrow$ Across hedge funds, pensions, sovereigns \\
+      \\
+      \textbf{Average: \$750{,}000/year per client} \\
+      \quad Includes access, support, scaling usage \\
+      \\
+      \textbf{Total ARR potential: \$750M} \\
+      \quad If retention holds and upsell expands \\
+      \\
+      \textit{Implies \$62.5M/month recurring by year 6}
+    };
+  
+    \end{tikzpicture}
+    \caption{Napkin Sketch: Mid-curve projection for enterprise ML infrastructure revenue.}
+\end{figure}
 
 \medskip
 
@@ -901,7 +938,7 @@ David scratched numbers into the corner of the napkin.
 \medskip
 
 They had moved to the bar by then. The dinner plates were cleared. Hart’s jacket was off, his sleeves pushed up, and the 
-lights had dimmed just enough to signal that the crowd was thinning — but not enough to end the night.
+lights had dimmed just enough to signal that the crowd was thinning, but not enough to end the night.
 
 A jazz trio murmured in the corner. Ice clinked in lowball glasses. David swirled his scotch, letting the silence stretch 
 before continuing.
