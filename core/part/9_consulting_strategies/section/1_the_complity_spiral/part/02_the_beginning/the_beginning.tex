@@ -457,14 +457,71 @@ So David's solution was simple:
 
 His slides detailed the pipeline.
 
-\begin{itemize}
-\item Extract structured data from transaction logs, margin calls, and trading desk summaries.
-\item Pass it through a machine learning model that mimicked the interpretive heuristics of junior compliance 
-analysts.
-\item Generate narrative summaries — paragraphs, not bullet points — using fine-tuned large language 
-models with memory constraints and feedback loops.
-\item Package it in regulator-friendly PDFs with embedded audit trails.
-\end{itemize}
+\medskip
+
+\begin{figure}[H]
+    \centering
+    \resizebox{0.85\textwidth}{!}{%
+      \begin{tikzpicture}[
+        font=\footnotesize,
+        stage/.style={draw=black, thick, rounded corners, minimum width=3.6cm, minimum height=1.6cm, align=center, fill=gray!10},
+        arrow/.style={->, thick},
+        node distance=1.5cm and 2.6cm
+      ]
+  
+      % Top Row (left to right)
+      \node[stage] (extract) at (0,0) {
+        \parbox{3.4cm}{
+            \centering \textbf{Extract} \\\ \\
+            \begin{itemize}
+                \item Transaction logs 
+                \item Margin calls
+            \end{itemize}
+          }
+      };
+  
+      \node[stage, right=of extract] (model) {
+        \parbox{3.4cm}{
+            \centering \textbf{Interpret} \\\ \\
+            \begin{itemize}
+                \item Risk heuristics
+                \item Data context
+            \end{itemize}
+        }
+      };
+  
+      % Downward arrow to next tier
+      \node[stage, below=2.2cm of model] (generate) {
+        \parbox{3.4cm}{
+            \centering \textbf{Generate Narrative} \\\ \\
+            \begin{itemize}
+                \item Summaries 
+                \item Analysis
+            \end{itemize}
+        }
+      };
+  
+      \node[stage, left=of generate] (deliver) {
+        \parbox{3.4cm}{
+            \centering \textbf{Deliver} \\\ \\ 
+            \begin{itemize}
+                \item PDFs 
+                \item Audit trails
+            \end{itemize}
+        }
+      };
+  
+      % Arrows
+      \draw[arrow] (extract) -- (model);
+      \draw[arrow] (model) -- ++(0,-1.2) -- (generate.north);
+      \draw[arrow] (generate) -- (deliver);
+  
+      \end{tikzpicture}%
+    }
+    \caption{Slide Snapshot: Snake-style pipeline from data extraction to regulatory narrative delivery.}
+\end{figure}
+
+\medskip
 
 Most RegTech startups solved for formatting.
 
@@ -475,55 +532,45 @@ generated templated disclosures based on pre-defined rules.
 But their systems were reactive.
 
 They followed the letter of compliance, and not its spirit. They automated checklists, not judgment. Their 
-“AI” was often just glorified rulesets: decision trees hidden behind polished UIs.
+“AI” was often just glorified decision trees hidden behind polished UIs.
 
 \medskip
 
-\begin{PhilosophicalSidebar}{Hermeneutics: From Scripture to Systems}
-
-    Hermeneutics — the theory and methodology of interpretation — has its roots in theology.
-    
-    \medskip
-    
-    After the Protestant Reformation fractured the authority of the Catholic Church, a pressing question emerged:  
-    \textbf{If we all have the same Bible, why do we read it so differently?}
-    
-    \medskip
-    
-    With centralized dogma destabilized, scholars and theologians needed new tools to adjudicate meaning. Thus, 
-    hermeneutics matured into a discipline: not just \textit{what} the text said, but \textit{how} it was read.  
-    Different sects developed distinct interpretive lenses — historical, allegorical, moral, and anagogical — 
-    in an effort to ground their doctrines in reason rather than tradition.
-    
-    \medskip
-    
-    But hermeneutics didn’t stay in the church.
-    
-    \medskip
-    
-    In the 20th century, philosopher Martin Heidegger redefined hermeneutics as a fundamental part of being human. 
-    In \textit{Being and Time}, he introduced the concept of \textbf{Dasein} as the being who interprets.  
-    For Heidegger, interpretation wasn’t a scholarly act. It was existential.  
-    We don’t encounter raw facts; we encounter \textit{meaning} filtered through our situation, language, and history.
-    
-    \medskip
-    
-    Hermeneutics thus escaped its theological cage and became a lens on all systems of meaning:  
-    legal codes, literary texts, social rituals, and even computer interfaces.
-    
-    \medskip
-    
-    \textbf{David’s insight?}  
-    That regulatory compliance --- like scripture --- isn’t just about rules.  
-    It’s about how those rules are read, applied, and justified.
-    
-    \medskip
-    
-    So when he trained his models to \textit{interpret the scriptures faster than the priests},  
-    he wasn’t automating compliance.  
-    He was building an interpretive machine.
-    
-\end{PhilosophicalSidebar}
+\begin{figure}[H]
+    \centering
+    \resizebox{0.85\textwidth}{!}{%
+      \begin{tikzpicture}[
+        font=\footnotesize,
+        node/.style={draw, rounded corners, align=center, minimum width=3.2cm, minimum height=1.2cm, fill=gray!10, thick},
+        edge from parent/.style={draw, thick, ->},
+        level distance=2.6cm,
+        sibling distance=4.5cm,
+        metadata/.style={font=\scriptsize\itshape, text=gray!50!black}
+      ]
+  
+      \node[node] {Start: Regulatory Event}
+        child { node[node] {Check Jurisdiction}
+          child { node[node] {Map to Schema}
+            child { node[node] {Output XML} 
+              edge from parent node[midway, left, metadata] {Schema Match} }
+            child { node[node] {Output JSON}
+              edge from parent node[midway, right, metadata] {Alt Format} }
+            edge from parent node[midway, left, metadata] {Pre-defined Rule}
+          }
+          child { node[node] {Raise Format Alert}
+            edge from parent node[midway, right, metadata] {Missing Mapping}
+          }
+          edge from parent node[midway, left, metadata] {Jurisdiction = US/EU}
+        }
+        child { node[node] {Ignore or Log}
+          edge from parent node[midway, right, metadata] {No Rule Found}
+        };
+  
+      \end{tikzpicture}%
+    }
+    \caption{Illustrative Decision Tree: A simplified RegTech compliance system built on pre-defined rules and 
+    deterministic formatting logic.}
+\end{figure}
 
 \medskip
 
@@ -590,17 +637,95 @@ Because he understood what most vendors didn’t.
 
 \medskip
 
+Unlike most RegTech platforms — which focus on formatting data into regulator-approved schemas and automating 
+checklist-driven tasks — David’s system aimed to replicate judgment, not just structure. 
+
+Traditional tools ingested 
+data, standardized it, and outputted XML or JSON files with rule-based templates, often powered by decision trees 
+disguised as intelligence. In contrast, David’s pipeline began by extracting structured data from transaction logs, 
+margin calls, and trading desk summaries — but what followed was fundamentally different. Instead of routing that 
+data through static logic, it passed through a machine learning model designed to mimic the interpretive heuristics 
+of a junior compliance analyst, identifying not just what was present, but what mattered. 
+
+The system then generated full narrative summaries — not bullet points — using fine-tuned large language models 
+trained to speak in regulatory 
+tone, operating within memory constraints and guided by feedback loops. 
+
+The final product wasn’t just compliant; it 
+was coherent: regulator-ready PDFs embedded with audit trails that didn’t just prove the math ---  they explained 
+the reasoning.
+
+\medskip
+
+\begin{PhilosophicalSidebar}{Hermeneutics: From Scripture to Systems}
+
+    Hermeneutics — the theory and methodology of interpretation — has its roots in theology.
+    
+    \medskip
+    
+    After the Protestant Reformation fractured the authority of the Catholic Church, a pressing question emerged:  
+    \textbf{If we all have the same Bible, why do we read it so differently?}
+    
+    \medskip
+    
+    With centralized dogma destabilized, scholars and theologians needed new tools to adjudicate meaning. Thus, 
+    hermeneutics matured into a discipline: not just \textit{what} the text said, but \textit{how} it was read.  
+    Different sects developed distinct interpretive lenses — historical, allegorical, moral, and anagogical — 
+    in an effort to ground their doctrines in reason rather than tradition.
+    
+    \medskip
+    
+    But hermeneutics didn’t stay in the church.
+    
+    \medskip
+    
+    In the 20th century, philosopher Martin Heidegger redefined hermeneutics — the art of interpretation — as a 
+    fundamental structure of human existence. In Being and Time, he introduced the concept of Dasein: the being for 
+    whom being is a question, and whose very mode of existence is interpretive. For Heidegger, interpretation wasn’t 
+    a scholarly exercise reserved for theologians or literary critics — it was existential. 
+
+    \medskip
+    
+    We don’t encounter raw facts, he argued; we encounter meaning, always already filtered through our situation, 
+    language, and historical context. What’s less commonly discussed is that Heidegger began his intellectual life as 
+    a Catholic seminarian. He studied theology and read Martin Luther closely, and absorbed the Protestant reformer’s 
+    radical approach to the Bible. Though Heidegger eventually lost his religious faith, he retained Luther’s hermeneutic 
+    stance and universalized it: applying it not just to scripture, but to law, literature, ritual, even technology. 
+    In his hands, hermeneutics escaped its theological origins and became a method for understanding all systems of 
+    meaning whether legal codes, social norms, computer user interfaces, and machine logic.
+    
+    \medskip
+    
+    \textbf{David’s insight?}  
+    That regulatory compliance --- like scripture --- isn’t just about rules.  
+    It’s about how those rules are read, applied, and justified.
+    
+    \medskip
+    
+    So when he trained his models to \textit{interpret the scriptures faster than the priests},  
+    he wasn’t automating compliance.  
+    He was building an interpretive machine.
+    
+\end{PhilosophicalSidebar}
+
+\medskip
+
+
 One slide showed a side-by-side:
 \textit{Human-Generated Report (3 hrs)} vs. \textit{LLM-Generated Report (13 seconds)}.
 The differences were indistinguishable. He’d tested it on ex-regulators. They didn’t spot the swap.
 
 Another slide bore the heading:
-\textbf{The Paradox of Compliance: Everyone’s Accountable, No One Wants to Write It.}
+
+\begin{quote}
+    \centering
+    \textbf{The Paradox of Compliance: Everyone’s Accountable, And No One Wants to Write It.}
+\end{quote}
 
 He smiled at that one.
 
 The deck ended with a quote he planned to use onstage:
-\textit{“The cost of compliance is not risk—it’s attention.”}
+\textit{“The cost of compliance is not risk. It’s attention.”}
 
 David leaned back, exhaled, and let the screen dim.
 
