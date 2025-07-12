@@ -239,15 +239,12 @@ before the real one. A diagram as prelude. One napkin, two parties, zero excuses
     % Napkin background
     \node[fuzz, minimum width=11cm, minimum height=7cm, anchor=center] (napkin) at (5.5,-3.5) {};
   
-    % Title
-    \node[font=\bfseries] at (5.5,-0.8) {Liability Perimeter Design};
-  
     % Entity Boxes - centered horizontally
     \node[draw, thick, rounded corners, fill=white, minimum width=3.8cm, minimum height=1.2cm, align=center] 
-      (centauri) at (3.3,-2.0) {Centauri\\ \scriptsize(Client-facing ops)};
+      (centauri) at (3.3,-0.8) {Centauri\\ \scriptsize(Client-facing ops)};
     
     \node[draw, thick, rounded corners, fill=white, minimum width=3.8cm, minimum height=1.2cm, align=center] 
-      (aurora) at (7.7,-2.0) {Aurora\\ \scriptsize(Infrastructure + ML)};
+      (aurora) at (7.7,-0.8) {Aurora\\ \scriptsize(Infrastructure + ML)};
   
     % LLC box in between
     \node[draw, thick, dashed, rounded corners, fill=white, minimum width=5cm, minimum height=1.4cm, align=center] 
@@ -260,10 +257,6 @@ before the real one. A diagram as prelude. One napkin, two parties, zero excuses
     % Risk boundary around LLC
     \draw[thick, red, rounded corners, dashed] ([xshift=-0.3cm, yshift=0.4cm]llc.north west) 
       rectangle ([xshift=0.3cm, yshift=-0.4cm]llc.south east);
-  
-    % Annotation above LLC
-    \node[txt, align=center] at (5.5,-1.2) {\textit{Liability sandbox:} \\
-      Compartmentalizes exposure};
   
     % Footer explanation
     \node[txt, align=left] at (5.5,-5.4) {
