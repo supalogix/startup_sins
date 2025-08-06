@@ -123,6 +123,8 @@ But first, you had to be willing to pull the lever.
     Everything else (hedges, derivatives, overlays) reacts to that anchor.  
     It’s not just about speed.  
     It’s about control.
+
+
     
 \end{TechnicalSidebar}
 
@@ -135,9 +137,47 @@ The thought surfaced before the words. He didn’t ask the question out loud —
 
 They weren’t pretty this early. Illiquid, wide spreads, and the pre-market tape looked more like a drunk algorithm’s confession than real price discovery. But still... safer than futures.
 
-They’re shallow pre-open… but safer than futures.
+They’re shallow pre-open... but safer than futures.
 
-Futures were faster, yes — brutal and immediate — but they cut both ways. A little slippage and the whole desk would wear the mark-to-market loss like a scar. One bad fill and compliance would be at his door with a chart, a timestamp, and a question he couldn’t afford to answer truthfully.
+Futures were faster, yes — brutal and immediate — but they cut both ways. 
+A little slippage and the whole desk would wear the mark-to-market loss like a scar. 
+One bad fill and compliance would be at his door with a chart, a timestamp, and a 
+question he couldn’t afford to answer truthfully.
+
+\medskip
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[
+      node distance=1.6cm and 2.8cm,
+      every node/.style={font=\small, align=center},
+      box/.style={rectangle, draw=black, rounded corners, minimum height=1.2cm, minimum width=3.2cm, fill=blue!15},
+      derived/.style={rectangle, draw=black, rounded corners, minimum height=1.2cm, minimum width=3.2cm, fill=orange!15},
+      arrow/.style={->, thick}
+    ]
+    
+    % Nodes
+    \node[box] (cash) {Cash Leg\\\textbf{(Equities)}\\Executed First};
+    
+    \node[derived, below left=of cash] (derivatives) {Derivatives\\(Options, Swaps)};
+    \node[derived, below=of cash] (hedges) {Hedges\\(Futures, Forwards)};
+    \node[derived, below right=of cash] (overlays) {Overlays\\(Baskets, ETFs)};
+    
+    % Arrows from cash to others
+    \draw[arrow] (cash.south) -- (hedges.north) node[midway,right=0.1cm] {\scriptsize Anchor Price};
+    \draw[arrow] (cash.south west) -- (derivatives.north) node[midway,left=0.1cm] {\scriptsize Price Certainty};
+    \draw[arrow] (cash.south east) -- (overlays.north) node[midway,right=0.1cm] {\scriptsize Latency Control};
+
+    % Annotations
+    \node[align=center, font=\small\itshape, above=0.6cm of cash] {Execution Sequence:\\Cash Leads};
+
+    \node[font=\small, below=1.8cm of hedges] {\textit{All components depend on the cash leg's price, fill, and timing.}};
+    
+  \end{tikzpicture}
+  \caption{Anchor Sequencing: The Cash Leg Fires First to Stabilize Execution}
+\end{figure}
+
+\medskip
 
 No mark-to-market shock if we get slippage.
 
